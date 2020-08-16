@@ -49,7 +49,7 @@
 				top: 40px;
 				left: 0px;
 				right: 0px;
-				font-size: 60px;
+				font-size: 36px;
 				font-weight: bold;
 				color: rgba(255, 255, 255, 0.75);
 				text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
@@ -60,7 +60,8 @@
 				bottom: 15px;
 				left: 0px;
 				right: 0px;
-				font-size: 12px;
+				font-size: 24px;
+				font-weight: lighter;
 				color: rgba(127, 255, 255, 0.75);
 			}
 
@@ -576,7 +577,7 @@
 				"F",
 				9,
 				10,
-				"Jasmine",
+				"Jas",
 				"26",
 				"F",
 				10,
@@ -725,11 +726,9 @@
 					element.className = "element";
 
 					if (table[i + 2] == "F") {
-						element.style.backgroundColor =
-							"rgba(255,182,193," + (Math.random() * 0.5 + 0.25) + ")";
+						element.style.backgroundColor = "rgb(255,20,147)";
 					} else {
-						element.style.backgroundColor =
-							"rgba(0,0,255," + (Math.random() * 0.5 + 0.25) + ")";
+						element.style.backgroundColor = "rgb(0,0,128)";
 					}
 
 					var number = document.createElement("div");
