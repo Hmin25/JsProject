@@ -820,10 +820,12 @@
 
 				var axis = new THREE.Vector3(0, 1, 0);
 				var lookAt = new THREE.Vector3();
-				var localLookAt = new THREE.Vector3(); // sides
-				var itemH = 180;
-				var itemW = 140;
-				var startH = itemH * 2;
+				var localLookAt = new THREE.Vector3();
+
+				var pyramid_item_height = 180;
+				var pyramid_item_width = 140;
+				var pyramid_starting_height = pyramid_item_height * 2;
+
 				// 4 sides of a pyramid
 				for (let sides = 0; sides < 4; sides++) {
 					let angle = Math.PI * 0.5 * sides;
@@ -836,16 +838,24 @@
 						// rows will be 0,1,2,3,4
 						// firstItem will be 1
 						// results are 1+0, 1+2, 1+4, 1+6, 1+8
+
 						let items = firstItem + rows * 2; // arithmetic progression
 
-						let h = startH - rows * itemH;
-						let w = -((items - 1) / 2) * itemW;
+						let h = pyramid_starting_height - rows * pyramid_item_height;
+						let w = -((items - 1) / 2) * pyramid_item_width;
 
 						for (let item = 0; item < items; item++) {
 							let object = new THREE.Object3D();
-							object.position.set(w + item * itemW, h, (rows + 1) * itemW);
+							object.position.set(
+								w + item * pyramid_item_width,
+								h,
+								(rows + 1) * pyramid_item_width
+							);
+
 							object.position.applyAxisAngle(axis, angle);
+
 							object.lookAt(localLookAt.addVectors(object.position, lookAt));
+
 							targets.pyramid.push(object);
 						}
 					}
@@ -853,21 +863,38 @@
 
 				// base
 				lookAt.set(0, -1, 0);
-				var step = (itemW * 9) / 5;
+				var step = (pyramid_item_width * 9) / 5;
+
+				// The remaining 18 elements
 				for (let i = 0; i < 18; i++) {
 					let object = new THREE.Object3D();
-					let x0 = -itemW * 4;
-					let z0 = -itemW * 4;
+
+					let initial_Xvalue = -pyramid_item_width * 4; // -560
+					let initial_Zvalue = -pyramid_item_width * 4;
+
 					let row = Math.floor(i / 5);
 					let col = i - row * 5;
-					object.position.set(
-						x0 + col * step,
-						-itemH * 3,
-						z0 + row * step * 1.25
-					);
+
+					let xPosition = initial_Xvalue + col * step;
+					let yPosition = -pyramid_item_height * 3;
+					let zPosition = initial_Zvalue + row * step * 1.25;
+
+					// console.log(
+					// 	"x is ",
+					// 	xPosition,
+					// 	" y is ",
+					// 	yPosition,
+					// 	" z is ",
+					// 	zPosition
+					// );
+
+					object.position.set(xPosition, yPosition, zPosition);
+
 					object.lookAt(localLookAt.addVectors(object.position, lookAt));
+
 					targets.pyramid.push(object);
 				}
+
 				console.log(targets.pyramid);
 
 				//
